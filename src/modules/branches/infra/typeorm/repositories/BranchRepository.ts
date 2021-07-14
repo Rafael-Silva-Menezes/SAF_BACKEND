@@ -7,25 +7,19 @@ import Branches from '../entities/Branches';
 class BranchRepository implements IBranchRepository {
   private ormRepository: Repository<Branches>;
 
-
   constructor() {
     this.ormRepository = getRepository(Branches);
   }
 
-  public async findBranchById(
-    id: string,
-  ): Promise<Branches | undefined> {
+  public async findBranchById(id: string): Promise<Branches | undefined> {
     const branch = await this.ormRepository.findOne({
       where: { id },
-      relations: [ 'employees'],
     });
 
     return branch;
   }
 
-  public async findBranchByName(
-    name: string,
-  ): Promise<Branches | undefined> {
+  public async findBranchByName(name: string): Promise<Branches | undefined> {
     const branch = await this.ormRepository.findOne({
       where: { name },
     });
@@ -33,13 +27,11 @@ class BranchRepository implements IBranchRepository {
     return branch;
   }
 
-
   public async findAllBranches(): Promise<Branches[] | undefined> {
     const branches = await this.ormRepository.find();
 
     return branches;
   }
-
 
   public async createBranch(data: ICreateBranchDTO): Promise<Branches> {
     const branches = this.ormRepository.create(data);

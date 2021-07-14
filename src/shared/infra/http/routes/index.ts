@@ -6,6 +6,8 @@ import passwordRouter from '@modules/users/infra/http/routes/password.routes';
 
 import branchesRouter from '../../../../modules/branches/infra/http/routes/branch.routes';
 
+import employeesRouter from '../../../../modules/employees/infra/http/routes/employee.routes';
+
 
 
 const routes = Router();
@@ -17,5 +19,8 @@ routes.use('/password', passwordRouter);
 
 //Branch
 routes.use('/branches', branchesRouter);
+
+//Employee
+routes.use('/employees', employeesRouter);
 
 export default routes;

@@ -32,7 +32,7 @@ export default class AddRelationsBranchesWithEmployees1626203444120
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey("branches", "IdEmployeesBranch");
-    await queryRunner.dropColumn("branches", "branch_id");
+    await queryRunner.dropForeignKey("employees", "IdEmployeesBranch");
+    await queryRunner.dropColumn("employees", "branch_id");
   }
 }

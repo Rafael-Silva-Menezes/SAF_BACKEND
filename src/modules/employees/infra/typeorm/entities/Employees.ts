@@ -4,12 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
 } from 'typeorm';
 
-
-@Entity('branches')
-class Branches {
+@Entity('employees')
+class Employees {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -17,14 +15,16 @@ class Branches {
   name: string;
 
   @Column()
-  total_staff: number;
+  branch_id: string;
+
+  @Column()
+  branch_name: string;
 
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
-
 }
 
-export default Branches;
+export default Employees;

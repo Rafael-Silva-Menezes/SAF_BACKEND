@@ -4,7 +4,7 @@ import AppError from '@shared/errors/AppError';
 
 import Branches from '../infra/typeorm/entities/Branches';
 import IBranchRepository from '../repositories/IBranchRepository';
-import ICreateBranchDTO from '../dtos/ICreateBranchDTO';
+import IUpdateBranch from '../dtos/IUpdateBranch';
 
 @injectable()
 class CreateBranchService {
@@ -13,10 +13,7 @@ class CreateBranchService {
     private branchRepository: IBranchRepository,
   ) {}
 
-  public async execute({
-    name,
-    total_staff,
-  }: ICreateBranchDTO): Promise<Branches> {
+  public async execute({ id, name }: IUpdateBranch): Promise<Branches> {
     const checkBranchNameAlreadyUsed =
       await this.branchRepository.findBranchByName(name);
 
@@ -24,10 +21,15 @@ class CreateBranchService {
       throw new AppError('This name has already used');
     }
 
-    const branch = await this.branchRepository.createBranch({
-      name,
-      total_staff,
-    });
+    const branch = await this.branchRepository.findBranchById(id);
+
+    if (!branch) {
+      throw new AppError('Branch not exist');
+    }
+
+    branch.name = name;
+
+    await this.branchRepository.saveBranch(branch);
 
     return branch;
   }

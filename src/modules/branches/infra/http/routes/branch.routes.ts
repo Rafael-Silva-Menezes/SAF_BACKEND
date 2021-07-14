@@ -1,11 +1,13 @@
 import { Router } from 'express';
 
-import BranchController from '../controllers/BranchController';
 import { celebrate, Segments, Joi } from 'celebrate';
-
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import BranchController from '../controllers/BranchController';
 
 const branchesRouter = Router();
 const branchController = new BranchController();
+
+branchesRouter.use(ensureAuthenticated);
 
 branchesRouter.post(
   '/create',
@@ -15,6 +17,31 @@ branchesRouter.post(
     },
   }),
   branchController.create,
+);
+
+branchesRouter.get('/index', branchController.index);
+
+branchesRouter.get(
+  '/show/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    },
+  }),
+  branchController.show,
+);
+
+branchesRouter.put(
+  '/show/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+    },
+  }),
+  branchController.update,
 );
 
 export default branchesRouter;

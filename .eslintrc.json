@@ -1,6 +1,6 @@
 {
   "env": {
-    "es6": true,
+    "es2020": true,
     "node": true,
     "jest": true
   },
@@ -10,10 +10,6 @@
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2018,
@@ -26,20 +22,16 @@
   "rules": {
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
-    "@typescript-eslint/camelcase": "off",
     "no-useless-constructor": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
         "argsIgnorePattern": "_"
       }
     ],
-    "@typescript-eslint/interface-name-prefix": [
-      "error",
-      {
-        "prefixWithI": "always"
-      }
-    ],
+    "no-console": "off",
+    "camelcase": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -50,7 +42,7 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": []
+      "typescript": {}
     }
   }
 }
