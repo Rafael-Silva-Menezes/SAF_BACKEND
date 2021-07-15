@@ -9,7 +9,8 @@ import EditEmployeeService from '@modules/employees/services/EditEmployeeService
 
 export default class EmployeeController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, branch_id } = request.body;
+    const { branch_id } = request.params;
+    const { name } = request.body;
 
     const createEmployee = container.resolve(CreateEmployeeService);
 

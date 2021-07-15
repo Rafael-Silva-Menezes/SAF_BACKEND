@@ -31,17 +31,16 @@ branchesRouter.get(
   branchController.show,
 );
 
-branchesRouter.put(
-  '/show/:id',
+branchesRouter.put('/update/:id', branchController.update);
+
+branchesRouter.delete(
+  '/delete/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().required(),
     },
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-    },
   }),
-  branchController.update,
+  branchController.remove,
 );
 
 export default branchesRouter;

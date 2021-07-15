@@ -14,13 +14,6 @@ class CreateBranchService {
   ) {}
 
   public async execute({ id, name }: IUpdateBranch): Promise<Branches> {
-    const checkBranchNameAlreadyUsed =
-      await this.branchRepository.findBranchByName(name);
-
-    if (checkBranchNameAlreadyUsed) {
-      throw new AppError('This name has already used');
-    }
-
     const branch = await this.branchRepository.findBranchById(id);
 
     if (!branch) {
@@ -28,6 +21,7 @@ class CreateBranchService {
     }
 
     branch.name = name;
+    console.log(branch);
 
     await this.branchRepository.saveBranch(branch);
 

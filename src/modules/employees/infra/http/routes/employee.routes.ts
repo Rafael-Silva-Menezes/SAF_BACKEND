@@ -10,11 +10,13 @@ const employeesController = new EmployeeController();
 employeesRouter.use(ensureAuthenticated);
 
 employeesRouter.post(
-  '/create',
+  '/create/:branch_id',
   celebrate({
+    [Segments.PARAMS]: {
+      branch_id: Joi.string().required(),
+    },
     [Segments.BODY]: {
       name: Joi.string().required(),
-      branch_id: Joi.string().required(),
     },
   }),
   employeesController.create,
@@ -57,7 +59,7 @@ employeesRouter.put(
 );
 
 employeesRouter.delete(
-  '/remove/:branch_id/:id',
+  '/delete/:branch_id/:id',
   celebrate({
     [Segments.PARAMS]: {
       branch_id: Joi.string().required(),

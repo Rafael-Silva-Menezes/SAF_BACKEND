@@ -5,6 +5,7 @@ import CreateBranchService from '@modules/branches/services/CreateBranchService'
 import ShowBranchService from '@modules/branches/services/ShowBranchService';
 import ListBranchesService from '@modules/branches/services/ListBranchesService';
 import UpdateBranchService from '@modules/branches/services/UpdateBranchService';
+import DeleteBranchservice from '@modules/branches/services/DeleteBranchservice';
 
 export default class BranchController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -52,5 +53,17 @@ export default class BranchController {
     });
 
     return response.json(branch);
+  }
+
+  public async remove(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const deleteBranch = container.resolve(DeleteBranchservice);
+
+    await deleteBranch.execute({
+      id,
+    });
+
+    return response.json({ message: 'Branch deleted' });
   }
 }

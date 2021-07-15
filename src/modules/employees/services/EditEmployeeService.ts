@@ -46,6 +46,7 @@ class CreateEmployeeService {
     employee.name = name;
     employee.branch_name = branch_name;
     employee.branch_id = newBranchId.id;
+    newBranchId.total_staff += 1;
 
     await this.employeeRepository.saveEmployee(employee);
 
